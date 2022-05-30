@@ -1,9 +1,9 @@
 export default async function handler(req, res) {
   // Check for secret to confirm this is a valid request
-  if (req.query.secret !== process.env.SECRET_TOKEN) {
+  if (req.headers.secret !== process.env.SECRET_TOKEN) {
     return res.status(401).json({ message: 'Invalid token' })
   }
-
+  console.log(req)
   try {
     await res.unstable_revalidate('/path-to-revalidate')
     return res.json({ revalidated: true })
