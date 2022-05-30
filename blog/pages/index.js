@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import groq from 'groq'
-import client from '../../client'
+import client from '../client'
 
 const Index = ({posts}) => {
     return (
@@ -10,7 +10,7 @@ const Index = ({posts}) => {
           ({ _id, title = '', slug = '', publishedAt = '' }) =>
             slug && (
               <li key={_id}>
-                <Link href="/blogs/[slug]" as={`/blogs/${slug.current}`}>
+                <Link href="/[slug]" as={`/${slug.current}`}>
                   <a>{title}</a>
                 </Link>{' '}
                 ({new Date(publishedAt).toDateString()})
