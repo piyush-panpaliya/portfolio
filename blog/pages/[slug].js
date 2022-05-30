@@ -93,7 +93,7 @@ export async function getStaticProps(context) {
   const { slug = "" } = context.params
   console.log(slug)
   const post = await client.fetch(query, { slug })
-  console.log(post.title)
+  console.log(post)
   return {
     props: {
       post
