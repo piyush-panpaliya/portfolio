@@ -3,13 +3,13 @@ export default async function handler(req, res) {
   if (req.headers.secret !== process.env.SECRET_TOKEN) {
     return res.status(401).json({ message: 'Invalid token' })
   }
-  console.log(JSON.stringify(req.body))
   const slug = req.body.slug.current
   if (!slug) {
     return res.status(400).json({ message: 'Invalid slug' })
   }
   try {
     await res.unstable_revalidate(`/${slug}`)
+    console.log(`revalidated ${slug}`)
     return res.json({ revalidated: true })
   } catch (err) {
     // If there was an error, Next.js will continue
