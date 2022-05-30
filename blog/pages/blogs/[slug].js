@@ -2,6 +2,7 @@ import groq from 'groq'
 import imageUrlBuilder from '@sanity/image-url'
 import {PortableText} from '@portabletext/react'
 import client from '../../client'
+import Image from 'next/image'
 
 function urlFor (source) {
   return imageUrlBuilder(client).image(source)
@@ -14,7 +15,7 @@ const ptComponents = {
         return null
       }
       return (
-        <img
+        <Image
           alt={value.alt || ' '}
           loading="lazy"
           src={urlFor(value).width(320).height(240).fit('max').auto('format')}
@@ -24,14 +25,13 @@ const ptComponents = {
   }
 }
 
-const Post = ({post}) => {
-  const {
+const Post = ({
     title = 'Missing title',
     name = 'Missing name',
     categories,
     authorImage,
     body = []
-  } = post
+  }) => {
   return (
     <article>
       <h1>{title}</h1>
@@ -44,7 +44,7 @@ const Post = ({post}) => {
       )}
       {authorImage && (
         <div>
-          <img
+          <Image
             src={urlFor(authorImage)
               .width(50)
               .url()}
@@ -60,7 +60,7 @@ const Post = ({post}) => {
   )
 }
 
-const query = groq`*[_type == "post" && slug.current == $slug][0]{
+const query = groq`*[_type == "post" && slug.current == "hello-namaste"][0]{
   title,
   "name": author->name,
   "categories": categories[]->title,
@@ -71,7 +71,7 @@ export async function getStaticPaths() {
   const paths = await client.fetch(
     groq`*[_type == "post" && defined(slug.current)][].slug.current`
   )
-
+  // console.log(paths)
   return {
     paths: paths.map((slug) => ({params: {slug}})),
     fallback: true,
@@ -81,7 +81,9 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   // It's important to default the slug so that it doesn't return "undefined"
   const { slug = "" } = context.params
+  console.log(slug)
   const post = await client.fetch(query, { slug })
+  console.log(post)
   return {
     props: {
       post
