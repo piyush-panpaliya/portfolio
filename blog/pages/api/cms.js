@@ -4,8 +4,12 @@ export default async function handler(req, res) {
     return res.status(401).json({ message: 'Invalid token' })
   }
   console.log(JSON.stringify(req.body))
+  const slug = req.body.slug.current
+  if (!slug) {
+    return res.status(400).json({ message: 'Invalid slug' })
+  }
   try {
-    await res.unstable_revalidate('/path-to-revalidate')
+    await res.unstable_revalidate(`/${slug}`)
     return res.json({ revalidated: true })
   } catch (err) {
     // If there was an error, Next.js will continue
