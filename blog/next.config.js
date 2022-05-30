@@ -17,8 +17,4 @@ module.exports = {
       .catch(console.error)
     return paths
   },
-  // env:{
-  //   SANITY_ID:process.env.SANITY_ID,
-  //   SECRET_TOKEN:process.env.SECRET_TOKEN
-  // }
 }

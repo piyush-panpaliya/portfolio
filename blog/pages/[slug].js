@@ -15,7 +15,7 @@ const ptComponents = {
         return null
       }
       return (
-        <Image
+        <img
           alt={value.alt || ' '}
           loading="lazy"
           src={urlFor(value).width(320).height(240).fit('max').auto('format')}
@@ -25,13 +25,23 @@ const ptComponents = {
   }
 }
 
-const Post = ({
+// {
+//   title = 'Missing title',
+//   name = 'Missing name',
+//   categories,
+//   authorImage,
+//   body = []
+// }
+
+const Post = ({post}) => {
+  const {
     title = 'Missing title',
     name = 'Missing name',
     categories,
     authorImage,
     body = []
-  }) => {
+  }=post
+  
   return (
     <article>
       <h1>{title}</h1>
@@ -44,7 +54,7 @@ const Post = ({
       )}
       {authorImage && (
         <div>
-          <Image
+          <img
             src={urlFor(authorImage)
               .width(50)
               .url()}
