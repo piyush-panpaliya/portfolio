@@ -35,7 +35,7 @@ const Hero = () => {
           </Fade>
         </div>
         <div className='w-[90vw]  md:max-w-[30vw] xl:max-w-[35vw]  '>
-          <img src='/media/intro.png ' className=' md:w-full w-[90vw] shadow-2xl'/>
+          <img src='/media/intro.png' className=' md:w-full w-[90vw] shadow-2xl'/>
           {/* <div className='bg-black/[65%] px-5 pt-4 pb-8 rounded-xl flex flex-col gap-y-8 shadow-2xl'>
             <div className='relative flex items-center justify-center'>
               <p className='text-white/75'>Into.js</p>
